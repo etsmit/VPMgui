@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1329</width>
+    <height>870</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTextBrowser" name="Display_Script">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>451</width>
+      <height>651</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>541</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>VPM Configuration Generator </string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Dispersion_Mode">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>220</y>
+      <width>151</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Coherent</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Incoherent</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>200</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dispersion Mode</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Observation_Mode">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>220</y>
+      <width>151</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Cal</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fold</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Search</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Coherent_Search</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Coherent_Fold</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Coherent_Cal</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>200</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Observation Mode</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>390</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Polarization Products</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Polarization_Products">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>410</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Total Intensity</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Full Stokes</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>440</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Noise Diode State</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Noise_Diode_State">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>460</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Low Power</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>High Power</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Off</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>200</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recivers</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Receiver_Names">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>220</y>
+      <width>151</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>L-Band (Rcvr1_2)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>S-Band (Rcvr2_3)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>C-Band (Rcvr4_6)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>X-Band (Rcvr8_10)</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>200</y>
+      <width>271</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Frequency Channels / Spectral Window  </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>390</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Bw / spectral window </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>250</y>
+      <width>271</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Parfile</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Parfile">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>270</y>
+      <width>271</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>390</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>390</y>
+      <width>141</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sampling time (us)</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>440</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Scale</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>440</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fold Bins</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Fold_Bins">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>460</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_15">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>440</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fold Time</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Fold_Time">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>460</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Create_Script">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>680</y>
+      <width>331</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Generate Script</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Tint">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>410</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Tint</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>32</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>64</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>128</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>256</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>512</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1024</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2048</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4096</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>8192</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="Band_Width">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>410</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Band Width</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>100</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>200</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>800</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1500</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="Nchan">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>220</y>
+      <width>271</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Nchan</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>32</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>64</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>128</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>256</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>512</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1024</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2048</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4096</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>8192</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="Scale">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>460</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Scale</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>300</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>450</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>500</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>600</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>675</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>700</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1000</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1300</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1375</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1500</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2500</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2800</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3750</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4000</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>5000</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10000</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>12500</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>13500</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>65000</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="Rest_Frequency">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>410</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>390</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rest Frequency</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_18">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>390</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Receiver Polarization</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Polarization">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>410</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Linear</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Circular</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>370</y>
+      <width>791</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>________________________________________________________________________________________________________________</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>150</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>User Specified Options</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_19">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>310</y>
+      <width>311</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>310</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Auto Populate Variables</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_20">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>250</y>
+      <width>271</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dispersion measure</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>270</y>
+      <width>271</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1329</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
