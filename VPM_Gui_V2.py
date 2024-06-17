@@ -31,6 +31,7 @@ class App(QMainWindow, Ui_MainWindow):
 
     def Combo_Box_Bw_Nchan(self):
         Count_Nchan = self.Nchan.count()
+        print(type(self.Nchan))
         for contents in range(Count_Nchan):
             self.Nchan.model().item(contents).setEnabled(True)
             self.Tint.model().item(contents).setEnabled(True)
@@ -43,6 +44,7 @@ class App(QMainWindow, Ui_MainWindow):
                 self.Tint.model().item(1).setEnabled(False)
 
                 for i in range(Range_Gray_Out):
+                    print(self.Nchan.model().item(i + Start_Gray_Out))
                     self.Nchan.model().item(i + Start_Gray_Out).setEnabled(False)
                     self.Tint.model().item(i + Start_Gray_Out).setEnabled(False)
 
