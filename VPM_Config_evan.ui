@@ -53,12 +53,12 @@
     </property>
     <item>
      <property name="text">
-      <string>Coherent</string>
+      <string>coherent</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Incoherent</string>
+      <string>incoherent</string>
      </property>
     </item>
     <item>
@@ -94,32 +94,17 @@
     </property>
     <item>
      <property name="text">
-      <string>Cal</string>
+      <string>cal</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Fold</string>
+      <string>fold</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Search</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Coherent_Search</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Coherent_Fold</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Coherent_Cal</string>
+      <string>search</string>
      </property>
     </item>
    </widget>
@@ -349,22 +334,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>1010</x>
-      <y>440</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Scale</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
@@ -564,111 +533,6 @@
     <item>
      <property name="text">
       <string>8192</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QComboBox" name="Scale">
-    <property name="geometry">
-     <rect>
-      <x>1010</x>
-      <y>460</y>
-      <width>101</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>300</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>450</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>500</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>600</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>675</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>700</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>1000</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>1300</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>1375</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>1500</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2500</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2800</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>3750</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>4000</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>5000</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>10000</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>12500</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>13500</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>65000</string>
      </property>
     </item>
    </widget>
