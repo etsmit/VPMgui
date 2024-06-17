@@ -23,8 +23,23 @@ Command = Config_Commands.readlines()
 Rcvr_Dict = {"PF342 (Rcvr_342)": "Rcvr_342", "PF800 (Rcvr_800)": "Rcvr_800", "L-Band (Rcvr1_2)": "Rcvr1_2", "S-Band (Rcvr2_3)": "Rcvr2_3", "C-Band (Rcvr4_6)": "Rcvr4_6", "X-Band (Rcvr8_10)": "Rcvr8_10", "UWBR (Rcvr_2500)": "Rcvr_2500"}
 
 #which nchan items to gray out based on dedisp method and bandwidth
-Nchan_Grayout_Scheme = {'Coherent/100' : np.r_[0,5:9], 'Coherent/200' : np.r_[0,6:9], 'Coherent/800' : np.r_[8], 'Coherent/1500' : np.r_[8], 'Incoherent/100' : np.r_[0:4,8], 'Incoherent/200' : np.r_[0:5], 'Incoherent/800' : np.r_[9], 'Incoherent/1500' : np.r_[8]}
+#keys are formatted {mode}/{bw}
+Nchan_Grayout_Scheme = {'coherent/100' : np.r_[0,5:9], 'coherent/200' : np.r_[0,6:9], 'coherent/800' : np.r_[8], 'coherent/1500' : np.r_[8], 'incoherent/100' : np.r_[0:4,8], 'incoherent/200' : np.r_[0:5], 'incoherent/800' : np.r_[9], 'incoherent/1500' : np.r_[8]}
 
+
+Scale_Scheme = {
+    'coherent/100/64':820, 'coherent/100/128':595, 'coherent/100/256':1650, 'coherent/100/512':2355,
+    'coherent/200/64':605, 'coherent/200/128':865, 'coherent/200/256':620, 'coherent/200/512':1720, 'coherent/200/1024':2430,
+    'coherent/800/32':375, 'coherent/800/64':420, 'coherent/800/128':800, 'coherent/800/256':940, 'coherent/800/512':1585, 'coherent/800/1024':880,  'coherent/800/2048':3155, 'coherent/800/4096':4550,
+    'coherent/1500/32':365, 'coherent/1500/64':530, 'coherent/1500/128':730, 'coherent/1500/256':1070, 'coherent/1500/512':1450, 'coherent/1500/1024':1085,  'coherent/1500/2048':3000, 'coherent/1500/4096':3750,
+    'incoherent/100/512':1875, 'incoherent/100/1024':4010, 'incoherent/100/2048':550, 'incoherent/100/4096':990, 'incoherent/100/8192':580,
+    'incoherent/200/1024':1920, 'incoherent/200/2048':1030, 'incoherent/200/4096':540, 'incoherent/200/8192':1045, 
+    'incoherent/800/32':14380, 'incoherent/800/64':7240, 'incoherent/800/128':14690, 'incoherent/800/256':7340, 'incoherent/800/512':15320, 'incoherent/800/1024':7495, 'incoherent/800/2048':14300, 'incoherent/800/4096':7545, 'incoherent/800/8192':24725,
+    'incoherent/1500/32':14675, 'incoherent/1500/64':6835, 'incoherent/1500/128':13485, 'incoherent/1500/256':6750, 'incoherent/1500/512':13345, 'incoherent/1500/1024':6655, 'incoherent/1500/2048':13035, 'incoherent/1500/4096':6595, 'incoherent/1500/8192':13500,
+    }
+
+Diode_Scheme = {'Low Power':"'lo'", 'High Power':"'hi'", 'Off':"'off'"}
+Stokes_Scheme= {'Total Intensity':"'total_intensity'", 'Full Stokes':"'full_stokes'"}
 
 
 
@@ -41,7 +56,7 @@ class App(QMainWindow, Ui_MainWindow):
         self.Create_Script.clicked.connect(self.Generate_Script)
         self.Observation_Mode.activated.connect(self.Polarization_Mode)
 
-    #
+    #Gray out nchan values based on the coherent/incoherent and bandwaidth selected
     def Combo_Box_Bw_Nchan(self):
         Count_Nchan = self.Nchan.count()
         print(type(self.Nchan))
@@ -65,17 +80,8 @@ class App(QMainWindow, Ui_MainWindow):
         
         Gray_Out_Bw_Nchan( Nchan_Grayout_Scheme[current_mode], self.Band_Width.currentText() )
 
-        #if self.Dispersion_Mode.currentText() == "Coherent":
-        #    Gray_Out_Bw_Nchan(, "100")
-        #    Gray_Out_Bw_Nchan(, "200")
-        #    Gray_Out_Bw_Nchan(, "1500")
 
-
-
-        #elif self.Dispersion_Mode.currentText() == "Incoherent":
-        #    Gray_Out_Bw_Nchan(, "100")
-        #    Gray_Out_Bw_Nchan(, "200")
-
+    #not sure what this does
     def Auto_Select_Nchan_Tint(self):
         Tint_Count = self.Tint.count()
         Item       = self.Nchan.currentIndex()
@@ -86,89 +92,19 @@ class App(QMainWindow, Ui_MainWindow):
             else:
                 self.Tint.model().item(j).setEnabled(False)
 
+    #select scale based on bw, nchan, mode
     def Auto_Select_Tint_and_Scale(self):
-        Band_Width_Item = self.Band_Width.currentText()
-        Count_Scale = self.Scale.count()
+        bw = self.Band_Width.currentText()
+        mode = self.Dispersion_Mode.currentText()
+        nchan = self.Nchan.currentText
+        
+        key = f'{mode}/{bw}/{nchan}'
+        scale = Scale_Scheme[key]
+    
+        tint = 16 * nchan / bw
 
-        def Auto_select_Scale(Scale_Range,Item_Tint,Selected_Scale):
-            if self.Tint.currentText() == Item_Tint:
-                Scale_Item_Index = self.Scale.findText(Selected_Scale)
-                self.Scale.setCurrentIndex(Scale_Item_Index)
+        return tint,scale
 
-                for k in range(Scale_Range):
-                    if k == Scale_Item_Index:
-                        None
-                    else:
-                        self.Scale.model().item(k).setEnabled(False)
-        if self.Dispersion_Mode.currentText() == "Coherent":
-            if Band_Width_Item == "100":
-                Auto_select_Scale(Count_Scale,"64" ,"820")
-                Auto_select_Scale(Count_Scale,"128" ,"595")
-                Auto_select_Scale(Count_Scale,"256" ,"1650")
-                Auto_select_Scale(Count_Scale,"512" ,"2355")
-
-            elif Band_Width_Item == "200":
-                Auto_select_Scale(Count_Scale, "64", "605")
-                Auto_select_Scale(Count_Scale, "128", "865")
-                Auto_select_Scale(Count_Scale, "256", "620")
-                Auto_select_Scale(Count_Scale, "512", "1720")
-                Auto_select_Scale(Count_Scale, "1024", "2430")
-
-            elif Band_Width_Item == "800":
-                Auto_select_Scale(Count_Scale, "32", "375")
-                Auto_select_Scale(Count_Scale, "64", "420")
-                Auto_select_Scale(Count_Scale, "128", "800")
-                Auto_select_Scale(Count_Scale, "256", "940")
-                Auto_select_Scale(Count_Scale, "512", "1585")
-                Auto_select_Scale(Count_Scale, "1024", "880")
-                Auto_select_Scale(Count_Scale, "2048", "3155")
-                Auto_select_Scale(Count_Scale, "4096", "4550")
-
-            elif Band_Width_Item == "1500":
-                Auto_select_Scale(Count_Scale, "32", "365")
-                Auto_select_Scale(Count_Scale, "64", "530")
-                Auto_select_Scale(Count_Scale, "128", "730")
-                Auto_select_Scale(Count_Scale, "256", "1070")
-                Auto_select_Scale(Count_Scale, "512", "1450")
-                Auto_select_Scale(Count_Scale, "1024", "1085")
-                Auto_select_Scale(Count_Scale, "2048", "3000")
-                Auto_select_Scale(Count_Scale, "4096", "3750")
-
-        elif self.Dispersion_Mode.currentText() == "Incoherent":
-            if Band_Width_Item == "100":
-                Auto_select_Scale(Count_Scale, "512", "1875")
-                Auto_select_Scale(Count_Scale, "1024", "4010")
-                Auto_select_Scale(Count_Scale, "2048", "550")
-                Auto_select_Scale(Count_Scale, "4096", "990")
-                Auto_select_Scale(Count_Scale, "8192", "580")
-
-            elif Band_Width_Item == "200":
-                Auto_select_Scale(Count_Scale, "1024", "1920")
-                Auto_select_Scale(Count_Scale, "2048", "1030")
-                Auto_select_Scale(Count_Scale, "4096", "540")
-                Auto_select_Scale(Count_Scale, "8192", "1045")
-
-            elif Band_Width_Item == "800":
-                Auto_select_Scale(Count_Scale, "32", "14830")
-                Auto_select_Scale(Count_Scale, "64", "7240")
-                Auto_select_Scale(Count_Scale, "128", "14690")
-                Auto_select_Scale(Count_Scale, "256", "7340")
-                Auto_select_Scale(Count_Scale, "512", "15320")
-                Auto_select_Scale(Count_Scale, "1024", "7495")
-                Auto_select_Scale(Count_Scale, "2048", "14300")
-                Auto_select_Scale(Count_Scale, "4096", "7545")
-                Auto_select_Scale(Count_Scale, "8192", "14725")
-
-            elif Band_Width_Item == "1500":
-                Auto_select_Scale(Count_Scale, "32", "14675")
-                Auto_select_Scale(Count_Scale, "64", "6835")
-                Auto_select_Scale(Count_Scale, "128", "13485")
-                Auto_select_Scale(Count_Scale, "256", "6750")
-                Auto_select_Scale(Count_Scale, "512", "13345")
-                Auto_select_Scale(Count_Scale, "1024", "6655")
-                Auto_select_Scale(Count_Scale, "2048", "13035")
-                Auto_select_Scale(Count_Scale, "4096", "6595")
-                Auto_select_Scale(Count_Scale, "8192", "13500")
 
     def Create_Name(self):
         rcvr    = self.Receiver_Names.currentText()
@@ -196,9 +132,24 @@ class App(QMainWindow, Ui_MainWindow):
 
         #now set things from the gui
         Config_dict['receiver'] = Rcvr_Dict[self.Receiver_Names.currentText()]
-        Config_dict['nchan'] = self.Nchan.currentText()
-        Config_dict['noisecal'] = self.Noise_Diode_State.currentText()
-        Config_dict['noisecal'] = self.Noise_Diode_State.currentText()
+        Config_dict['vegas.numchan'] = self.Nchan.currentText()
+        Config_dict['noisecal'] = Diode_Scheme[self.Noise_Diode_State.currentText()]
+        Config_dict['vegas.polnmode'] = Stokes_Scheme[self.Polarization_Products.currentText()]
+
+        obsmode = f'{self.Dispersion_Mode.currentText()}_{self.Observation_Mode.currentText}'
+        Config_dict['vegas.obsmode'] = obsmode
+
+        if obsmode[-3:] == 'cal':
+            Config_dict['swmode'] = "'tp_cal'"
+        else:
+            Config_dict['swmode'] = "'tp_nocal'"
+        
+
+        
+        #unpickable things
+        tint,scale = self.Auto_Select_Tint_and_Scale()
+        Config_dict['vegas.scale'] = scale
+        Config_dict['tint'] = f'{tint*1e6}e-6'
 
 
         Command_List = [self.Observation_Mode.currentText(),
@@ -225,7 +176,7 @@ class App(QMainWindow, Ui_MainWindow):
             Full_Command_Statement = Command[Widget_List].replace("null", Widget_Input)
             return self.Display_Script.append(Full_Command_Statement)
 
-        Rcvr_Dict = {"PF342 (Rcvr_342)": "Rcvr_342", "PF800 (Rcvr_800)": "Rcvr_800", "L-Band (Rcvr1_2)": "Rcvr1_2", "S-Band (Rcvr2_3)": "Rcvr2_3", "C-Band (Rcvr4_6)": "Rcvr4_6", "X-Band (Rcvr8_10)": "Rcvr8_10", "UWBR (Rcvr_2500)": "Rcvr_2500"}
+
         rcvr = self.Receiver_Names.currentText()
         ddmode = self.Dispersion_Mode.currentText()
         bw = self.Band_Width.currentText()
