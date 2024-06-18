@@ -24,7 +24,7 @@ Rcvr_Dict = {"PF342 (Rcvr_342)": "Rcvr_342", "PF800 (Rcvr_800)": "Rcvr_800", "L-
 
 #which nchan items to gray out based on dedisp method and bandwidth
 #keys are formatted {mode}/{bw}
-Nchan_Grayout_Scheme = {'coherent/100' : np.r_[0,5:9], 'coherent/200' : np.r_[0,6:9], 'coherent/800' : np.r_[8], 'coherent/1500' : np.r_[8], 'incoherent/100' : np.r_[0:4,8], 'incoherent/200' : np.r_[0:5], 'incoherent/800' : np.r_[9], 'incoherent/1500' : np.r_[8]}
+Nchan_Grayout_Scheme = {'coherent/100' : np.r_[0,5:9], 'coherent/200' : np.r_[0,6:9], 'coherent/800' : np.r_[8], 'coherent/1500' : np.r_[8], 'incoherent/100' : np.r_[0:4,8], 'incoherent/200' : np.r_[0:5], 'incoherent/800' : np.array([]), 'incoherent/1500' : np.r_[8]}
 
 
 Scale_Scheme = {
@@ -38,8 +38,22 @@ Scale_Scheme = {
     'incoherent/1500/32':14675, 'incoherent/1500/64':6835, 'incoherent/1500/128':13485, 'incoherent/1500/256':6750, 'incoherent/1500/512':13345, 'incoherent/1500/1024':6655, 'incoherent/1500/2048':13035, 'incoherent/1500/4096':6595, 'incoherent/1500/8192':13500,
     }
 
+#conversion gui -> internal variable names
 Diode_Scheme = {'Low Power':"'lo'", 'High Power':"'hi'", 'Off':"'off'"}
 Stokes_Scheme= {'Total Intensity':"'total_intensity'", 'Full Stokes':"'full_stokes'"}
+
+#derived stuff specific to each receiver
+#nwin, restfreq, bw, dopplertrackfreq, deltafreq
+Rcvr_specific = {
+    'Rcvr_342' : [1, 350, 100, 0, 350, 0.0],
+    'Rcvr_800' : [1, 820, 200, 1, 820, 0.0],
+    'Rcvr1_2'  : [1, 1500, 800, 2, 1500, 0.0],
+    'Rcvr2_3'  : [1, 2165, 1500, 3, 2165, 0.0],
+    'Rcvr4_6'  : [4, """[{'bank':'A','restfreq':7687.5},\n\t{'bank':'B','restfreq':6562.5},\n\t{'bank':'C','restfreq':5437.5},\n\t{'bank':'D','restfreq':4312.5}]""", 1500, 3, 5637.5, "0.0,0.0,0.0,0.0"],
+    'Rcvr8_10' : [4, """[{'bank':'A','restfreq':11506.8359375},\n\t{'bank':'B','restfreq':10504.8828125},\n\t{'bank':'C','restfreq':9502.9296875},\n\t{'bank':'D','restfreq':8500.9765625}]""", 1500, 3, 9702.9296875, "0.0,0.0,0.0,0.0"],
+    'Rcvr_2500': [3, "1225.0,2350.0,3475.0", 1500, 3, 6875.0, 0.0],
+    }
+
 
 
 
@@ -52,6 +66,9 @@ class App(QMainWindow, Ui_MainWindow):
         self.Band_Width.activated.connect(self.Combo_Box_Bw_Nchan)
         self.Nchan.activated.connect(self.Auto_Select_Nchan_Tint)
         self.Nchan.activated.connect(self.Auto_Select_Tint_and_Scale)
+        self.Receiver_Names.activated.connect(self.Auto_Select_Rx_specifics)
+        self.Receiver_Names.activated.connect(self.Combo_Box_Bw_Nchan)
+        self.Dispersion_Mode.activated.connect(self.Combo_Box_Bw_Nchan)
         #self.Create_Script.clicked.connect(self.Create_Name)
         self.Create_Script.clicked.connect(self.Generate_Script)
         self.Observation_Mode.activated.connect(self.Polarization_Mode)
@@ -71,6 +88,8 @@ class App(QMainWindow, Ui_MainWindow):
                 self.Nchan.model().item(1).setEnabled(False)
                 self.Tint.model().item(1).setEnabled(False)
 
+                for i in range(9):
+                    self.Nchan.model().item(i).setEnabled(True)
                 for i in grayout_index:
                     self.Nchan.model().item(i).setEnabled(False)
                     self.Tint.model().item(i).setEnabled(False)
@@ -80,6 +99,24 @@ class App(QMainWindow, Ui_MainWindow):
         
         Gray_Out_Bw_Nchan( Nchan_Grayout_Scheme[current_mode], self.Band_Width.currentText() )
 
+    #need to autofill the Rx specific options
+    #Rx specific things
+    #nwin, restfreq, bw, bw_index, dopplertrackfreq, deltafreq
+    def Auto_Select_Rx_specifics(self):
+        rx = Rcvr_Dict[self.Receiver_Names.currentText()]
+        print(rx)
+
+        #self.Rest_Frequency.clear()
+        self.DopplerTrackFreq.clear()
+        self.DeltaFreq.clear()
+
+        self.Num_Win.setCurrentIndex(Rcvr_specific[rx][0]-1)
+        #self.Rest_Frequency.insert(str(Rcvr_specific[rx][1]))
+        self.textEdit.setText(str(Rcvr_specific[rx][1]))
+        self.Band_Width.setCurrentIndex(Rcvr_specific[rx][3])
+        self.DopplerTrackFreq.insert(str(Rcvr_specific[rx][4]))
+        self.DeltaFreq.insert(str(Rcvr_specific[rx][5]))
+        
 
     #not sure what this does
     def Auto_Select_Nchan_Tint(self):
@@ -131,7 +168,8 @@ class App(QMainWindow, Ui_MainWindow):
         Config_dict['pol'] = "'Linear'"
 
         #now set things from the gui
-        Config_dict['receiver'] = Rcvr_Dict[self.Receiver_Names.currentText()]
+        rx = Rcvr_Dict[self.Receiver_Names.currentText()]
+        Config_dict['receiver'] = rx
         Config_dict['vegas.numchan'] = self.Nchan.currentText()
         Config_dict['noisecal'] = Diode_Scheme[self.Noise_Diode_State.currentText()]
         Config_dict['vegas.polnmode'] = Stokes_Scheme[self.Polarization_Products.currentText()]
@@ -150,6 +188,17 @@ class App(QMainWindow, Ui_MainWindow):
         tint,scale = self.Auto_Select_Tint_and_Scale()
         Config_dict['vegas.scale'] = scale
         Config_dict['tint'] = f'{tint*1e6}e-6'
+
+
+        #Rx specific things
+        #nwin, restfreq, bw, dopplertrackfreq, deltafreq
+        #these are grabbed from the gui, which are set automatically via Auto_Select_Rx_specifics()
+        Config_dict['nwin'] = self.Num_Win.currentText()
+        Config_dict['restfreq'] = self.RestFrequency.currentText()
+        Config_dict['bandwidth'] = self.Band_Width.currentText()
+        Config_dict['dopplertrackfreq'] = self.DopplerTrackFreq.currentText()
+        Config_dict['deltafreq'] = self.DeltaFreq.currentText()
+        
 
 
         Command_List = [self.Observation_Mode.currentText(),
