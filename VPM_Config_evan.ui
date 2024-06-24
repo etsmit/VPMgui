@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>1080</x>
-      <y>390</y>
+      <y>280</y>
       <width>131</width>
       <height>16</height>
      </rect>
@@ -144,7 +144,7 @@
     <property name="geometry">
      <rect>
       <x>1080</x>
-      <y>410</y>
+      <y>310</y>
       <width>131</width>
       <height>22</height>
      </rect>
@@ -281,7 +281,7 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>970</x>
       <y>390</y>
       <width>131</width>
       <height>20</height>
@@ -343,7 +343,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Sampling time (us)</string>
+     <string>Accum Len</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -411,7 +411,7 @@
      <string>Generate Script</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="Tint">
+   <widget class="QComboBox" name="Accum_Len">
     <property name="geometry">
      <rect>
       <x>780</x>
@@ -420,6 +420,21 @@
       <height>22</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>4</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>8</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>16</string>
+     </property>
+    </item>
     <item>
      <property name="text">
       <string>32</string>
@@ -450,26 +465,11 @@
       <string>1024</string>
      </property>
     </item>
-    <item>
-     <property name="text">
-      <string>2048</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>4096</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>8192</string>
-     </property>
-    </item>
    </widget>
    <widget class="QComboBox" name="Band_Width">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>980</x>
       <y>410</y>
       <width>131</width>
       <height>22</height>
@@ -570,8 +570,8 @@
    <widget class="QLabel" name="label_18">
     <property name="geometry">
      <rect>
-      <x>930</x>
-      <y>390</y>
+      <x>920</x>
+      <y>300</y>
       <width>131</width>
       <height>20</height>
      </rect>
@@ -587,7 +587,7 @@
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>410</y>
+      <y>340</y>
       <width>131</width>
       <height>22</height>
      </rect>
@@ -645,24 +645,6 @@
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>310</y>
-      <width>151</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>8</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Auto Populate Variables</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_20">
@@ -783,11 +765,29 @@
    <widget class="QTextEdit" name="RestFrequency">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>950</x>
       <y>510</y>
-      <width>221</width>
-      <height>181</height>
+      <width>351</width>
+      <height>131</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_23">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>390</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Auto-filled Options</string>
     </property>
    </widget>
   </widget>
